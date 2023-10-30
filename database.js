@@ -21,11 +21,20 @@ async function getGpu(req, res) {
         res.status(200).json(results.rows);
     });
 }
-function getGpuYear(startYear) {
-    const result = pool.query(
-        `SELECT * FROM clean_gpu where testDate >= ${startYear}`
+function getGpuYear(req, res) {
+    pool.query(
+        `select * from clean_gpu where "testDate" >= ${req.params.year}`,
+        (error, results) => {
+            if (error) {
+                throw error;
+            }
+            res.status(200).json(results.rows);
+        }
     );
-    return result.rows;
+    // const result = pool.query(
+    //     `SELECT * FROM clean_gpu where testDate >= ${startYear}`
+    // );
+    // return result.rows;
 }
 
 // console.log(await getGpu());

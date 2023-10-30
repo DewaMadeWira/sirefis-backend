@@ -20,8 +20,7 @@ app.post('/gpu', async (req, res) => {
     res.send(req.body); // echo the result back
 });
 app.get('/gpu:year', async (req, res) => {
-    const gpu = db.getGpuYear(req.params.year);
-    res.json(gpu);
+    db.getGpuYear(req, res);
 });
 
 app.get('/rank', async (req, res) => {
@@ -32,10 +31,10 @@ app.get('/rank', async (req, res) => {
 
 // app.listen(3000, '192.168.1.11');
 
-//app.listen(8080, '192.168.1.11', () => {
-//    console.log('server is running on port 8080');
-//});
-
-app.listen(8080, '192.168.1.10', () => {
+app.listen(8080, () => {
     console.log('server is running on port 8080');
 });
+
+// app.listen(8080, '192.168.1.10', () => {
+//     console.log('server is running on port 8080');
+// });

@@ -1,6 +1,9 @@
-import express from 'express';
-import axios from 'axios';
-import { getGpu, getGpuYear } from './database.js';
+const express = require('express');
+const db = require('./database');
+const axios = require('axios');
+
+// import axios from 'axios';
+// import { getGpu, getGpuYear } from './database.js';
 
 const app = express();
 app.use(express.json());
@@ -8,15 +11,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/gpu', async (req, res) => {
-    const gpu = await getGpu();
-    res.json(gpu);
+    db.getGpu(req, res);
+
+    // res.send('test');
 });
 app.post('/gpu', async (req, res) => {
     console.log(req.body); // your JSON
     res.send(req.body); // echo the result back
 });
 app.get('/gpu:year', async (req, res) => {
-    const gpu = await getGpuYear(req.params.year);
+    const gpu = db.getGpuYear(req.params.year);
     res.json(gpu);
 });
 

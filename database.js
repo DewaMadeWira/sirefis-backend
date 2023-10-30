@@ -1,22 +1,33 @@
-import mysql from 'mysql2';
-const pool = mysql
-    .createPool({
-        host: '127.0.0.1',
-        user: 'root',
-        password: '',
-        database: 'sirefis_db',
-    })
-    .promise();
+// import Pool from 'pg'
+const Pool = require('pg').Pool;
 
-export async function getGpu() {
-    const [result] = await pool.query('SELECT * FROM clean_gpu');
-    return result;
+require('dotenv').config();
+
+const credentials = {
+    user: process.env.USER,
+    host: process.env.HOST,
+    database: process.env.DATABASE_NAME,
+    password: process.env.PASSWORD,
+    port: 5432,
+};
+
+const pool = new Pool(credentials);
+
+async function getGpu(req, res) {
+    pool.query('SELECT * FROM clean_gpu ', (error, results) => {
+        if (error) {
+            throw error;
+        }
+        res.status(200).json(results.rows);
+    });
 }
-export async function getGpuYear(startYear) {
-    const [result] = await pool.query(
+function getGpuYear(startYear) {
+    const result = pool.query(
         `SELECT * FROM clean_gpu where testDate >= ${startYear}`
     );
-    return result;
+    return result.rows;
 }
 
-console.log(await getGpu());
+// console.log(await getGpu());
+
+module.exports = { getGpu, getGpuYear };

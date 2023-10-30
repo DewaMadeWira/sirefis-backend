@@ -10,6 +10,9 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
+app.get('/', async (req, res) => {
+    res.send("This is an API use '/gpu' or '/gpu2020' ");
+});
 app.get('/gpu', async (req, res) => {
     db.getGpu(req, res);
 

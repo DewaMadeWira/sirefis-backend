@@ -4,12 +4,12 @@ const pool = mysql
         host: '127.0.0.1',
         user: 'root',
         password: '',
-        database: 'sirefis_db',
+        database: 'sirefis_spk',
     })
     .promise();
 
 export async function getGpu() {
-    const [result] = await pool.query('SELECT * FROM clean_gpu');
+    const [result] = await pool.query('SELECT * FROM clean_gpu_spkcsv');
     return result;
 }
 export async function getGpuYear(startYear) {

@@ -21,9 +21,12 @@ app.get('/gpu:year', async (req, res) => {
 });
 
 app.get('/rank', async (req, res) => {
-    axios.get('http://127.0.0.1:5000/').then(function (response) {
-        res.send(response.data);
-    });
+    const gpu = await getGpu();
+    axios
+        .post('http://127.0.0.1:5000/rank-edas', { gpu_data: gpu })
+        .then(function (response) {
+            res.send(response.data);
+        });
 });
 
 // app.listen(3000, '192.168.1.11');
@@ -32,6 +35,9 @@ app.get('/rank', async (req, res) => {
 //    console.log('server is running on port 8080');
 //});
 
-app.listen(8080, '192.168.1.10', () => {
+// app.listen(8080, '192.168.1.10', () => {
+//     console.log('server is running on port 8080');
+// });
+app.listen(8080, () => {
     console.log('server is running on port 8080');
 });

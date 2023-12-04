@@ -9,7 +9,7 @@ const pool = mysql
     .promise();
 
 export async function getGpu() {
-    const [result] = await pool.query('SELECT * FROM clean_gpu_spkcsv');
+    const [result] = await pool.query('SELECT * FROM gpu_spk');
     return result;
 }
 export async function getGpuYear(startYear) {
@@ -18,5 +18,4 @@ export async function getGpuYear(startYear) {
     );
     return result;
 }
-
 console.log(await getGpu());

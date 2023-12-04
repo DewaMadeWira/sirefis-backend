@@ -29,6 +29,15 @@ app.get('/rank', async (req, res) => {
         });
 });
 
+app.get('/rank-mabac', async (req, res) => {
+    const gpu = await getGpu();
+    axios
+        .post('http://127.0.0.1:5000/rank-mabac', { gpu_data: gpu })
+        .then(function (response) {
+            res.send(response.data);
+        });
+});
+
 // app.listen(3000, '192.168.1.11');
 
 //app.listen(8080, '192.168.1.11', () => {
